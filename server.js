@@ -24,11 +24,13 @@ server.post('/videos', async (request, reply) => {
 
 //GET-----------------------------------------------------
 server.get('/videos', async (request) => {
-    const search = request.query.search
-    const videos = await database.list(search)
+    const search = request.query.search || ''; // Adicionando um valor padrão vazio
+    console.log('Requisição GET recebida com search:', search); // Log da requisição
+    const videos = await database.list(search);
+    console.log('Videos retornados:', videos); // Log dos vídeos retornados
 
-    return videos
-})
+    return videos;
+});
 
 //PUT-----------------------------------------------------
 server.put('/videos/:id', async (request, reply) => {
@@ -62,5 +64,6 @@ server.delete('/videos/:id', (request, reply) => {
 
 
 server.listen ({
+    host: '0.0.0.0',
     port: process.env.PORT ?? 3333,
 })

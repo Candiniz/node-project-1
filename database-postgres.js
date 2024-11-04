@@ -5,7 +5,7 @@ export class DatabasePostgres {
 
    async list(search) {
         let videos
-
+        console.log('TESTE DE LOG')
         if (search) {
         const searchPattern = `%${search}%`;
         videos = await sql`select * from videos where title ilike ${searchPattern}`;
@@ -25,9 +25,6 @@ export class DatabasePostgres {
 
     async update(id, video) {
         const { title, description, duration } = video
-
-        console.log(`Updating video ID: ${id}`);
-        console.log(`New data:`, { title, description, duration });
 
         await sql `update videos set title = ${title}, description= ${description}, duration= ${duration} WHERE id = ${id}`
     }
